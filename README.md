@@ -1,7 +1,7 @@
-automation-challenges
+devops-challenges
 =====================
 
-Coding challenges for the Vocalocity Automation Team
+Coding challenges for the Kabbage DevOps Team`
 
 Instructions
 ============
