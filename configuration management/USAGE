@@ -4,5 +4,8 @@ Requirements:
 1. Linux box
 2. SSH access
 3. The user needs sudo access - fab will pass through the specified password if needed
+4. The boxes must have facter and any dependencies installed to allow it to run.
 
 Final report will report the number of succeeded and failed hosts.
+
+fab -f config.py go -H host1,host2,host3
