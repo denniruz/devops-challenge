@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/words")
-public class WordCountController {
+public class WordCountController extends AbstractController {
 
     private final WordCountRepository wordCountRepository;
 
@@ -23,13 +24,15 @@ public class WordCountController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<WordCount> getAllWords() {
-        return wordCountRepository.findAll();
+    public Map<String, Integer> getAllWords() {
+        List<WordCount> wordCounts = wordCountRepository.findAll();
+        return massageOutput(wordCounts);
     }
 
     @RequestMapping(value = "/{word}", method = RequestMethod.GET)
-    public WordCount readWordCount(@PathVariable String word) {
+    public Map<String, Integer> readWordCount(@PathVariable String word) {
         Optional<WordCount> optionalWordCount = wordCountRepository.findByWord(word);
-        return optionalWordCount.orElseThrow(() -> new WordNotFoundException(word));
+        WordCount wordCount = optionalWordCount.orElseThrow(() -> new WordNotFoundException(word));
+        return massageOutput(wordCount);
     }
 }

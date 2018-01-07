@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/word")
-public class WordController {
+public class WordController extends AbstractController {
 
     private final WordCountManager wordCountManager;
 
@@ -21,14 +23,16 @@ public class WordController {
 
 
     @RequestMapping(value = "/{word}", method = RequestMethod.PUT)
-    public WordCount createOrReplace(@RequestBody Word word) {
-        return wordCountManager.addWord(word);
+    public Map<String, Integer> createOrReplace(@RequestBody Word word) {
+        WordCount wordCount = wordCountManager.addWord(word);
+        return massageOutput(wordCount);
     }
 
     @RequestMapping(value = "/{word}", method = RequestMethod.POST)
-    public WordCount createOrUpdate(@PathVariable String word, @RequestBody Word wordBody) {
+    public Map<String, Integer> createOrUpdate(@PathVariable String word, @RequestBody Word wordBody) {
 
-        return wordCountManager.addWord(wordBody);
+        WordCount wordCount = wordCountManager.addWord(wordBody);
+        return massageOutput(wordCount);
     }
 
     @RequestMapping(value = "/{word}", method = RequestMethod.DELETE)
@@ -38,6 +42,6 @@ public class WordController {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
-
     }
+
 }

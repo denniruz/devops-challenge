@@ -1,7 +1,5 @@
 package com.wysong.wordcount.web;
 
-import com.wysong.wordcount.model.WordCount;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.net.URL;
 import java.util.*;
@@ -21,7 +18,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class WordControllerTest {
+public class WordCountAppTest {
 
     @LocalServerPort
     private int port;
@@ -39,17 +36,23 @@ public class WordControllerTest {
     @Test
     public void testPost() {
         ResponseEntity<String> response = template.postForEntity(base.toString() + "word/beef", createBody("beef"), String.class);
-        String expected = createResposeString("beef", 1);
+        String expected = createResponseString("beef", 1);
         assertThat(response.getBody(), equalTo(expected));
     }
 
     @Test
-    public void testPut() throws Exception {
+    public void testPut() {
         createTestingData();
         String endpoint = base.toString() + "words";
-        ResponseEntity<String> response = template.getForEntity(endpoint, String.class);
-        String myString = new String("Stupid");
-//        assertThat(response.getBody().size(), equalTo(10));
+        ResponseEntity<String> response = template.getForEntity(endpoint + "/beef", String.class);
+        String expected = createResponseString("beef", 3);
+        assertThat(response.getBody(), equalTo(expected));
+
+        response = template.getForEntity(endpoint, String.class);
+        Map<String, Integer> expectedMap = new LinkedHashMap<>();
+        expectedMap.put("beef", 3);
+        expectedMap.put("chicken", 1);
+        assertThat(response.getBody(), equalTo(createResponseString(expectedMap)));
     }
 
     private void createTestingData() {
@@ -66,21 +69,32 @@ public class WordControllerTest {
         return map;
     }
 
-    private String createResposeString(String word, int count) {
+    private String createResponseString(String word, int count) {
+/*
         StringBuilder sb = new StringBuilder()
                 .append("{\"word\":\"")
                 .append(word)
                 .append("\",\"count\":")
                 .append(count)
                 .append("}");
-/*
+*/
         StringBuilder sb = new StringBuilder()
                 .append("{\"")
                 .append(word)
-                .append("\": ")
+                .append("\":")
                 .append(count)
                 .append("}");
-*/
+        return sb.toString();
+    }
+
+    private String createResponseString(Map<String, Integer> wordCounts) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        for (String s : wordCounts.keySet()) {
+            sb.append("\"").append(s).append("\":").append(wordCounts.get(s)).append(",");
+        }
+        sb.deleteCharAt(sb.lastIndexOf(","));
+        sb.append("}");
         return sb.toString();
     }
 
