@@ -1,0 +1,19 @@
+Run logscrape.sh with an argument of the logfile to parse according to the README.
+
+./logscrape.sh puppet_access_ssl.log
+
+This will generate output like:
+sshd_config was fetched: 6 times
+Of those, 0 returned a code other than 200
+Apache returned a code other than 200 6 times
+There were PUT requests to report 9 times
+Breakdown of PUT request accesses:
+      1 10.39.111.203
+      1 10.34.89.138
+      1 10.114.199.41
+      1 10.80.174.42
+      1 10.80.58.67
+      1 10.80.146.96
+      1 10.204.211.99
+      1 10.204.150.156
+      1 10.101.3.205
