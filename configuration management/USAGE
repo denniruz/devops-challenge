@@ -1,0 +1,8 @@
+This fabfile will log into hosts specified in the -H directive and create/update a file /etc/widgetfile/template.file
+
+Requirements:
+1. Linux box
+2. SSH access
+3. The user needs sudo access - fab will pass through the specified password if needed
+
+Final report will report the number of succeeded and failed hosts.

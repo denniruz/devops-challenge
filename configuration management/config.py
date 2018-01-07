@@ -19,7 +19,7 @@ env.warn_only = True
 # Yay sudo
 use_sudo = True
 
-# This task does the actual copying. Creates the directory, copies the template file, updates it 
+# This task does the actual copying. Creates the directory, copies the template file, updates it per the ouptut
 @task
 def copytemplate():
     with hide('everything'):
@@ -36,6 +36,7 @@ def copytemplate():
         else:
             return output
 
+# The wrapper task that handles running each the main task for each host and counts the overall success/failure
 @task
 @runs_once
 def go():
