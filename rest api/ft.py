@@ -6,10 +6,6 @@ import re
 app = Flask(__name__)
 
 words = []
-     #{
-    # 	'word': 'boat'
-    # }
-#]
 
 @app.route('/')
 def index():
@@ -17,21 +13,12 @@ def index():
 
 @app.route('/words', methods=['GET'])
 def get_words():
-    print(words)
+    return jsonify(Counter(words))
 
-    count = []
-
-    for key, values in words[0].items():
-            count[key] = len(values)
-    #return jsonify({'words': word})
-    return jsonify(count)
-    
 @app.route('/words/<string:countword>', methods=['GET'])
 def count_words(countword):
-    #return jsonify({'words': word})
     count = str(words.count(countword))
     returnjson = '{' + ' "{}" : {} '.format(countword, count) + '}'
-    print (returnjson)
     return returnjson
 
 @app.route('/words', methods=['PUT'])
@@ -43,7 +30,7 @@ def create_word():
     }
     if re.match('^\w+$', request.json['word']):
         words.append(request.json['word'])
-        return jsonify({'words': newword}), 201
+        return "OK!", 201
     else:
         return jsonify({"error": "PUT requests must be one word in length"}), 400
 

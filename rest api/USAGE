@@ -11,3 +11,10 @@ curl http://localhost:5000/words/cheese
 { "cheese" : 2 }
 
 A GET to /words will return a json array of the count of all entered words
+
+curl http://localhost:5000/words
+{
+  "cake": 3,
+  "cheese": 2,
+  "orange": 1
+}
