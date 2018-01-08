@@ -19,10 +19,13 @@ env.warn_only = True
 # Yay sudo
 use_sudo = True
 
-# This task does the actual copying. Creates the directory, copies the template file, updates it per the ouptut
+# This task does the actual copying. Makes sure facter is installed, creates the directory, copies the template file, updates it per the ouptut
 @task
 def copytemplate():
     with hide('everything'):
+        output = run('facter').succeeded
+        if not output:
+            return output
         output = sudo('mkdir -p /etc/widgetfile').succeeded
         #print "My X was ", output
         if not output:
