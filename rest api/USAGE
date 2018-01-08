@@ -1,0 +1,13 @@
+Add words via a PUT to /words with a json body.
+
+curl -i -H "Content-Type: application/json" -X PUT -d '{"word":"cheese"}' http://localhost:5000/words
+
+This accepts only one word at a time, and will error on multiple or blank words.
+
+A GET to /words/WORDNAME will return a count of the the number of times that word has been entered:
+
+curl http://localhost:5000/words/cheese
+
+{ "cheese" : 2 }
+
+A GET to /words will return a json array of the count of all entered words
