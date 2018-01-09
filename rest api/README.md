@@ -1,6 +1,6 @@
 DESCRIPTIOIN:
 
-This will start an api that listens on port 5000 that will do the following:
+This will start an API that listens on port 5000 that will do the following:
 
 - Accept PUT requests to /words
 - Stores a count of words that have been sent
