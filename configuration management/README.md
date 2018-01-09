@@ -16,6 +16,6 @@ You will need fabric api installed on the host via one of the following commands
   sudo apt-get install python-fabric
 
 Once fabric is loaded you can run the following command:
-fab -f ./chefthing.py doit -H <host>,<host>,<host>,...
+fab -f ./chefthing.py doit -H hostname,hostname,hostname,...
 
 This will create a babychef.pyc in the same directory.
