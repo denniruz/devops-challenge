@@ -1,0 +1,10 @@
+service http
+{
+    disable         = no
+    port            = 80
+    socket_type     = stream
+    protocol        = tcp
+    wait            = no
+    user            = ubuntu
+    server          = /home/ubuntu/rest.sh
+}
