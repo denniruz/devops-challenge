@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+#Import required libraries for use
 import re
 from collections import Counter
 from flask import Flask, jsonify, abort, make_response, request
@@ -8,7 +9,7 @@ app = Flask(__name__)
 
 words = []
 
-#GET words
+#GET a list of words with number of times PUT to API or GET a single word with number of times PUT to API
 @app.route('/words', methods=['GET'])
 def get_words():
     return jsonify(Counter(words))
@@ -19,7 +20,7 @@ def count_words(countword):
     returnjson = '{' + ' "{}" : {} '.format(countword, count) + '}\n'
     return returnjson
 
-#PUT words
+#PUT to words, only accepts single words will error otherwise or if request is not json
 @app.route('/words', methods=['PUT'])
 def create_words():
     if not request.json or not re.match('^\w+$', request.json['word']):
