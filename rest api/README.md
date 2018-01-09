@@ -1,30 +1,19 @@
-Instructions
-============
+DESCRIPTIOIN:
 
-In whatever language you like, as simple or as complex as you like, write a small daemon that will:
+This will start an API that listens on port 5000 that will do the following:
 
-* Start listening on a HTTP or HTTPS port
-* Accept PUT requests to /word/WORDNAME, with the body of the request being a JSON hash specifying a single word
+- Accept PUT requests to /words
+- Stores a count of words that have been sent
+- Accept GET requests to /words/<word> that reports how many times it has been PUT to the API
+- Accept GET request to /words that reports a JSON list of each word with a count of how many times it has been PUT to the API
 
-    { "word": "ONE_WORD" }
+USAGE:
 
- * Return a HTTP error code and JSON hash when the request is not one word in length:
+- To get a list of words with a count of each run the following:
+curl -i http://localhost:5000/words
 
-    { "error": "PUT requests must be one word in length" }
+- To return one specific word and a count of how many times it has been entered:
+curl -i http://localhost:5000/words/<word>
 
- * Store a running count of all words that have been sent to it
-  * E.g. "word COUNT has been sent 5 times", "word ROFFLE has been sent 8 times", etc
-* Accept GET requests to /words/WORDNAME
- * Return the integer count of how many times that word has been PUT to the api in a JSON hash
-
-    { "WORDNAME": INTEGER_COUNT }
-
-* Accept GET requests to /words
- * Return a JSON hash listing the count of every word
-
-    {
-       "WORDNAME": INTEGER_COUNT,
-       "WORDNAME2": INTEGER_COUNT,
-       "WORDNAME3": INTEGER_COUNT
-    }
-
+- To PUT a word into the API run the following:
+curl -i -H "Content-Type: application/json" -X PUT -d '{"word":"tina"}' http://localhost:5000/words
