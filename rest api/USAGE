@@ -1,3 +1,5 @@
+Running this will start a server on port 5000. It can be accessed via localhost.
+
 Add words via a PUT to /words with a json body.
 
 curl -i -H "Content-Type: application/json" -X PUT -d '{"word":"cheese"}' http://localhost:5000/words
