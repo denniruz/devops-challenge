@@ -1,0 +1,24 @@
+This fabfile will log into hosts specified in the -H directive and create/update a file /etc/widgetfile/template.file
+
+Requirements:
+1. Linux box
+2. SSH access
+3. The user needs sudo access - fab will pass through the specified password if needed
+4. The boxes must have facter and any dependencies installed to allow it to run.
+
+Final report will report the number of succeeded and failed hosts.
+
+fab -f config.py go -H host1,host2,host3
+
+fab -f config.py go -H 192.168.2.100,192.168.2.66,192.168.2.90 -u scott
+[192.168.2.100] Executing task 'go'
+[192.168.2.100] Executing task 'copytemplate'
+[192.168.2.100] Login password for 'scott':
+[192.168.2.66] Executing task 'copytemplate'
+[192.168.2.90] Executing task 'copytemplate'
+There were 3 successful and 0 failed deployments
+
+Done.
+Disconnecting from 192.168.2.90... done.
+Disconnecting from 192.168.2.100... done.
+Disconnecting from 192.168.2.66... done.
