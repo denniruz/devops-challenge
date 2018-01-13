@@ -1,27 +1,6 @@
-Requirements
-============
-
-Docker installed
-
-
 Instructions
 ============
 
-Create the docker file:
-docker build -t fab:latest .
-
-Command I used to test with:
-docker run -it --rm -v "$PWD":/app -v /Users/jwysong/.ssh:/.ssh fab:latest fab -i /.ssh/wysong -f fabwork.py -H donger@10.0.0.27,donger@10.0.0.237,jwysong@10.0.0.95 go
-
-Run by adding your lists of host as identified in the command below:
-docker run -it --rm -v "$PWD":/app fab:latest fab -f fabwork.py -H <list of hosts> go
-
-
-Left TODO:
-Display results in proper fashion.
-Hide running outputs.
-
-Original Text:
 In this directory is a file, "template.file". This file needs to be distributed to N systems, with the following portion replaced with dynamic content based on the contents of the output of the command 'facter -p widget' on the given target system:
 
     # Replace this
