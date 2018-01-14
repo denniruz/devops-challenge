@@ -10,3 +10,9 @@ In this directory there is an Apache logfile with several entries, "puppet_acces
  * A breakdown of how many times such requests were made by IP address
 
 This solution must run & print accurate results.
+
+###########################################################################################
+
+This script will run on any machine with bash installed.
+
+To demonstrate, run the shell script 'scraper.sh'

@@ -28,3 +28,10 @@ In whatever language you like, as simple or as complex as you like, write a smal
        "WORDNAME3": INTEGER_COUNT
     }
 
+##############################################################################################
+
+This will run on any machine with bash and python > 2.7 installed.
+
+You will first need to run the script 'runServer.sh'.
+
+In a new terminal window you can run the script 'runTest.sh' to demonstrate the api.
