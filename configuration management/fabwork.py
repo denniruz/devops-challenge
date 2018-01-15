@@ -10,6 +10,11 @@ with open('template.file', 'r') as f:
 
 @task
 def upload_template_and_populate():
+    """
+    Runs the puppet facter command on the host machine and puts the result into the template
+    and saves the updated template in the file /etc/widgetfile
+    :return: nothing
+    """
     # result = run('whoami')
     result = run('facter -p widget')
     # print(result)
@@ -39,6 +44,7 @@ def result_processing(results):
                 # print("SUCCESS: " + results[result])
                 num_correct += 1
         else:
+            # the result is an object like an Error object
             # print("ERROR FOUND! " + result)
             num_failed += 1
     print("")
@@ -49,8 +55,10 @@ def result_processing(results):
 @task
 @runs_once
 def go():
+    # Do not halt if host cannot be reached or something goes wrong
     env.skip_bad_hosts=True
     env.warn_only=True
+    #hide the logging output
     # hide('warnings', 'running', 'stdout', 'stderr')
     with settings(hide('warnings', 'running', 'stdout', 'stderr')):
         try:
