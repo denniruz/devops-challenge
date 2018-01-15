@@ -1,30 +1,37 @@
-Instructions
+Requirements
 ============
 
-In whatever language you like, as simple or as complex as you like, write a small daemon that will:
+* Java 1.8
+* Apache Maven 3.5.2
 
-* Start listening on a HTTP or HTTPS port
-* Accept PUT requests to /word/WORDNAME, with the body of the request being a JSON hash specifying a single word
+Instructions
+============
+run:
 
-    { "word": "ONE_WORD" }
+    mvn clean spring-boot:run
 
- * Return a HTTP error code and JSON hash when the request is not one word in length:
+Your server url will be: localhost:8080
 
-    { "error": "PUT requests must be one word in length" }
+Here are a example list of httpie commands for the different endpoints:
 
- * Store a running count of all words that have been sent to it
-  * E.g. "word COUNT has been sent 5 times", "word ROFFLE has been sent 8 times", etc
-* Accept GET requests to /words/WORDNAME
- * Return the integer count of how many times that word has been PUT to the api in a JSON hash
+    http PUT localhost:8080/word/ignoredword word=beef
+    http PUT localhost:8080/word/ignored word="not valid"
+    http POST localhost:8080/word/ignored word=beef
+    http DELETE localhost:8080/word/beef
+    
+    http GET localhost:8080/words
+    http GET localhost:8080/words/beef
 
-    { "WORDNAME": INTEGER_COUNT }
 
-* Accept GET requests to /words
- * Return a JSON hash listing the count of every word
+To run the integration tests:
 
-    {
-       "WORDNAME": INTEGER_COUNT,
-       "WORDNAME2": INTEGER_COUNT,
-       "WORDNAME3": INTEGER_COUNT
-    }
+    mvn test
 
+MAC USERS
+=========
+If you would like homebrew, java, java unlimited cryptography, maven, and httpie
+ installed for you in one easy script and you have sudo access, then run:
+ 
+     ./strap.sh
+     
+If any of those programs are already installed, then the script will just skip over it.
