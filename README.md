@@ -1,7 +1,7 @@
 devops-challenges
 =====================
 
-Coding challenges for the Kabbage DevOps Team`
+Coding challenges for the DevOps Team`
 
 Instructions
 ============
